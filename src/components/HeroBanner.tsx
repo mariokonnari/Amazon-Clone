@@ -3,11 +3,11 @@ const HeroBanner = () => {
         <section 
             className="relative w-full min-h-[400px] bg-cover bg-center flex items-center"
             style={{
-                backgroundImage: "url('https://picsum.photos/1920/800')",
+                backgroundImage: "url('https://picsum.photos/seed/hero/1920/800')",
             }}
         >
             {/* Dark Overlay */}
-            <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+            <div className="absolute inset-0 bg-black/50"></div>
 
             {/* Content */}
             <div className="relative z-10 max-w-7xl mx-auto px-8 text-white">

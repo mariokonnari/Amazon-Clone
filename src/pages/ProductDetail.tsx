@@ -18,7 +18,7 @@ const ProductDetail = () => {
 
     return(
         <div className="max-w-4xl mx-auto px-8 py-12 flex flex-col md:flex-row gap-12">
-            <div>
+            <div className="w-full md:w-96 flex-shrink-0">
                 <img
                     src={product.image}
                     alt={product.title}
@@ -31,7 +31,7 @@ const ProductDetail = () => {
                     {product.title}
                 </h1>
 
-                <p className="text-2xl font-semibold text-blue-600">
+                <p className="text-2xl font-semibold text-gray-900">
                     ${product.price}
                 </p>
 
@@ -39,7 +39,7 @@ const ProductDetail = () => {
                     ⭐ {product.rating}
                 </div>
 
-                <button className="mt-6 bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-3 rounded-lg text-lg font-semibold transition duration-200">
+                <button className="mt-6 bg-yellow-400 hover:bg-yellow-500 text-white px-6 py-3 rounded-lg text-lg font-semibold transition duration-200">
                     Add to Cart
                 </button>
             </div>

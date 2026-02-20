@@ -1,14 +1,14 @@
-import './App.css'
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import HeroBanner from './components/HeroBanner';
-import ProductList from './pages/ProductList';
+import Home from './pages/Home';
 
 function App() {
   return (
     <>
       <Navbar />
-      <HeroBanner />
-      <ProductList />
+      <Routes>
+        <Route path="/" element={<Home />}/>
+      </Routes>
     </>
   );
 };

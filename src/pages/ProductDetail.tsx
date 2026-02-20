@@ -1,7 +1,11 @@
 import { useParams } from "react-router-dom";
 import { products } from "../data/products";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/CartSlice";
 
 const ProductDetail = () => {
+    const dispatch = useDispatch();
+
     const { id } = useParams();
 
     const product = products.find(
@@ -15,6 +19,10 @@ const ProductDetail = () => {
             </div>
         );
     }
+
+    const handleAddToCart = () => {
+        dispatch(addToCart(product));
+    };
 
     return(
         <div className="max-w-4xl mx-auto px-8 py-12 flex flex-col md:flex-row gap-12">
@@ -39,7 +47,10 @@ const ProductDetail = () => {
                     ⭐ {product.rating}
                 </div>
 
-                <button className="mt-6 bg-yellow-400 hover:bg-yellow-500 text-white px-6 py-3 rounded-lg text-lg font-semibold transition duration-200">
+                <button 
+                    className="mt-6 bg-yellow-400 hover:bg-yellow-500 text-white px-6 py-3 rounded-lg text-lg font-semibold transition duration-200"
+                    onClick={handleAddToCart}
+                >
                     Add to Cart
                 </button>
             </div>

@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../store/CartSlice";
 
 interface ProductCardProps {
     id: number
@@ -9,6 +11,13 @@ interface ProductCardProps {
 }
 
 const ProductCard = ({ id, title, price, image, rating }: ProductCardProps) => {
+    const dispatch = useDispatch();
+
+    const handleAddToCart = (e: React.MouseEvent) => {
+        e.preventDefault();
+        dispatch(addToCart({ id, title, price, image, rating }));
+    };
+
     return(
         <Link to={`/product/${id}`} className="text-inherit no-underline">
             <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition p-4 flex flex-col">
@@ -41,7 +50,10 @@ const ProductCard = ({ id, title, price, image, rating }: ProductCardProps) => {
                 </div>
 
                 {/* Add to Cart Button */}
-                <button className="mt-auto bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 rounded-md transition">
+                <button 
+                    className="mt-auto bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 rounded-md transition"
+                    onClick={handleAddToCart}
+                >
                     Add to Cart
                 </button>
             </div>

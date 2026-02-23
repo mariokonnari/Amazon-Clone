@@ -7,7 +7,10 @@ const Navbar = () => {
         (state: RootState) => state.cart.items
     );
 
-    const itemCount = cartItems.length;
+    const totalQuantity = cartItems.reduce(
+        (sum, item) => sum + item.quantity,
+        0
+    );
 
     return(
         <nav className="flex w-full items-center justify-between bg-gray-900 text-white px-4 py-2">
@@ -27,17 +30,17 @@ const Navbar = () => {
             {/*Right Side - Sign In & Cart*/}
             <div className="flex items-center gap-4">
                 <button className="px-4 py-2 bg-gray-700 rounded-md hover:bg-gray-600 transition">Sign In</button>
-                <Link to="/cart" className="relative flex items-center gap-1 hover:text-yellow-400 transition">
-                    🛒
-                    {itemCount > 0 && (
-                        <span className="absolute -top-2 -right-3 bg-red-500 text-white text-xs px-2 py-1 rounded-full">
-                            {itemCount}
+                <Link to="/cart" className="relative flex items-center w-10 h-10 hover:text-yellow-400 transition">
+                    <span className="text-2xl">🛒</span>
+                    {totalQuantity > 0 && (
+                        <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
+                            {totalQuantity}
                         </span>
                     )}
                 </Link>
             </div>
         </nav>
     );
-}
+};
 
 export default Navbar;

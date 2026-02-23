@@ -3,9 +3,9 @@ import cartReducer from "./CartSlice";
 
 export const store = configureStore({
     reducer: {
-        cart: cartReducer
-    }
-})
+        cart: cartReducer,
+    },
+});
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch

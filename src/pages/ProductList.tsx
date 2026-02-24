@@ -1,11 +1,24 @@
 import ProductCard from "../components/ProductCard";
-import { products } from "../data/products";
+import type { Product } from "../types/product";
+import { useEffect, useState } from "react";
 
 interface ProductListProps {
     searchQuery: string;
 }
 
 const ProductList = ({searchQuery}: ProductListProps) => {
+    const [products, setProducts] = useState<Product[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetch("https://fakestoreapi.com/products")
+            .then(res => res.json())
+            .then(data => {
+                setProducts(data)
+                setLoading(false)
+            })
+    }, [])
+
     const filteredProducts = products.filter((product) =>
         product.title
             .toLowerCase()
@@ -22,6 +35,9 @@ const ProductList = ({searchQuery}: ProductListProps) => {
         )
     }
 
+
+    if (loading) return <p className="text-center mt-12">Loading products...</p>
+
     return (
         <div className="min-h-screen bg-gray-100 px-8 py-12">
             <h1 className="text-3xl font-bold mb-8">
@@ -35,8 +51,11 @@ const ProductList = ({searchQuery}: ProductListProps) => {
                         id={product.id}
                         title={product.title}
                         price={product.price}
-                        rating={product.rating}
+                        description={product.description}
+                        category={product.category}
                         image={product.image}
+                        rating={product.rating.rate}
+                        count={product.rating.count}
                     />
                 ))}
             </div>

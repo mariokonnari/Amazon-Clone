@@ -17,36 +17,44 @@ const Navbar = ({setSearchQuery}: NavbarProps) => {
     );
 
     return(
-        <nav className="flex w-full items-center justify-between bg-gray-900 text-white px-4 py-2">
-            {/*Left Side - Logo*/}
-            <div>
-                <h2 className="text-xl font-bold cursor-pointer">Mariozon</h2>
+        <div>
+            <nav className="flex w-full items-center justify-between bg-gray-900 text-white px-4 py-2">
+                {/*Left Side - Logo*/}
+                <div>
+                    <h2 className="text-xl font-bold cursor-pointer text-yellow-400">Mariozon</h2>
+                </div>
+                {/*Middle - Search Bar*/}
+                <div className="flex items-center gap-2">
+                    <input
+                        type="text"
+                        placeholder="Search products..."
+                        className="px-3 py-2 w-64 rounded-md text-black bg-white outline-none"
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                            setSearchQuery(e.target.value)
+                        }
+                    />
+                    <button className="px-4 py-2 bg-yellow-400 text-black rounded-md hover:bg-yellow-500 transition">Search</button>
+                </div>
+                {/*Right Side - Sign In & Cart*/}
+                <div className="flex items-center gap-4">
+                    <button className="px-4 py-2 bg-gray-700 rounded-md hover:bg-gray-600 transition">Sign In</button>
+                    <Link to="/cart" className="relative flex items-center w-10 h-10 hover:text-yellow-400 transition">
+                        <span className="text-2xl">🛒</span>
+                        {totalQuantity > 0 && (
+                            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
+                                {totalQuantity}
+                            </span>
+                        )}
+                    </Link>
+                </div>
+            </nav>
+            <div className="bg-gray-700 text-white text-sm px-4 py-1 flex gap-6">
+                <span className="cursor-pointer hover:text-yellow-400">Electronics</span>
+                <span className="cursor-pointer hover:text-yellow-400">Computers</span>
+                <span className="cursor-pointer hover:text-yellow-400">Gaming</span>
+                <span className="cursor-pointer hover:text-yellow-400">Books</span>
             </div>
-            {/*Middle - Search Bar*/}
-            <div className="flex items-center gap-2">
-                <input
-                    type="text"
-                    placeholder="Search products..."
-                    className="px-3 py-2 w-64 rounded-md text-black bg-white outline-none"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                        setSearchQuery(e.target.value)
-                    }
-                />
-                <button className="px-4 py-2 bg-yellow-400 text-black rounded-md hover:bg-yellow-500 transition">Search</button>
-            </div>
-            {/*Right Side - Sign In & Cart*/}
-            <div className="flex items-center gap-4">
-                <button className="px-4 py-2 bg-gray-700 rounded-md hover:bg-gray-600 transition">Sign In</button>
-                <Link to="/cart" className="relative flex items-center w-10 h-10 hover:text-yellow-400 transition">
-                    <span className="text-2xl">🛒</span>
-                    {totalQuantity > 0 && (
-                        <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs w-5 h-5 flex items-center justify-center rounded-full font-bold">
-                            {totalQuantity}
-                        </span>
-                    )}
-                </Link>
-            </div>
-        </nav>
+        </div>
     );
 };
 

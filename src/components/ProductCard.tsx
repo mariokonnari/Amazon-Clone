@@ -20,10 +20,10 @@ const ProductCard = ({ id, title, price, image, rating }: ProductCardProps) => {
 
     return(
         <Link to={`/product/${id}`} className="text-inherit no-underline">
-            <div className="bg-white rounded-xl shadow-md hover:shadow-lg transition p-4 flex flex-col">
+            <div className="bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition p-4 flex flex-col">
 
                 {/* Product Image */}
-                <div className="w-full h-48 flex items-center justify-center mb-4">
+                <div className="w-full h-40 bg-white flex items-center justify-center mb-4">
                     <img
                         src={image}
                         alt={title}

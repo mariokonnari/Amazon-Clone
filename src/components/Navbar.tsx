@@ -2,7 +2,11 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import type { RootState } from "../store/store";
 
-const Navbar = () => {
+interface NavbarProps {
+    setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const Navbar = ({setSearchQuery}: NavbarProps) => {
     const cartItems = useSelector(
         (state: RootState) => state.cart.items
     );
@@ -24,6 +28,9 @@ const Navbar = () => {
                     type="text"
                     placeholder="Search products..."
                     className="px-3 py-2 w-64 rounded-md text-black bg-white outline-none"
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                        setSearchQuery(e.target.value)
+                    }
                 />
                 <button className="px-4 py-2 bg-yellow-400 text-black rounded-md hover:bg-yellow-500 transition">Search</button>
             </div>

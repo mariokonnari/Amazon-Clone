@@ -1,11 +1,15 @@
 import HeroBanner from "../components/HeroBanner";
 import ProductList from "./ProductList";
 
-const Home = () => {
+interface HomeProps {
+    searchQuery: string;
+}
+
+const Home = ({searchQuery}: HomeProps) => {
     return(
         <>
             <HeroBanner />
-            <ProductList />
+            <ProductList searchQuery={searchQuery}/>
         </>
     );
 };

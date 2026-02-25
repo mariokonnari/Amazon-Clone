@@ -1,21 +1,14 @@
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../store/CartSlice";
+import type { Product } from "../types/product";
 
-interface ProductCardProps {
-    id: number
-    title: string
-    price: number
-    image: string
-    rating: number
-}
-
-const ProductCard = ({ id, title, price, image, rating }: ProductCardProps) => {
+const ProductCard = ({ id, title, price, image, rating }: Product) => {
     const dispatch = useDispatch();
 
     const handleAddToCart = (e: React.MouseEvent) => {
         e.preventDefault();
-        dispatch(addToCart({ id, title, price, image, rating }));
+        dispatch(addToCart({ id, title, price, description: "", category: "", image, rating }));
     };
 
     return(
@@ -44,7 +37,7 @@ const ProductCard = ({ id, title, price, image, rating }: ProductCardProps) => {
                 <div className="flex items-center mb-4">
                     {Array.from({length:5}).map((_,index) => (
                         <span key={index}>
-                            {index < rating ? "⭐" : "☆"}
+                            {index < rating.rate ? "⭐" : "☆"}
                         </span>
                     ))}
                 </div>

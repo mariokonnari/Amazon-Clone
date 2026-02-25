@@ -19,6 +19,8 @@ const ProductList = ({searchQuery}: ProductListProps) => {
             })
     }, [])
 
+    if (loading) return <p className="text-center mt-12">Loading products...</p>
+
     const filteredProducts = products.filter((product) =>
         product.title
             .toLowerCase()
@@ -34,9 +36,6 @@ const ProductList = ({searchQuery}: ProductListProps) => {
             </div> 
         )
     }
-
-
-    if (loading) return <p className="text-center mt-12">Loading products...</p>
 
     return (
         <div className="min-h-screen bg-gray-100 px-8 py-12">
@@ -54,8 +53,7 @@ const ProductList = ({searchQuery}: ProductListProps) => {
                         description={product.description}
                         category={product.category}
                         image={product.image}
-                        rating={product.rating.rate}
-                        count={product.rating.count}
+                        rating={product.rating}
                     />
                 ))}
             </div>

@@ -1,5 +1,4 @@
 import type { Product } from "../types/product";
-import type { Rating } from "../types/product";
 
 export const products: Product[] = [
     {

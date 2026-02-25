@@ -12,8 +12,8 @@ const ProductCard = ({ id, title, price, image, rating }: Product) => {
     };
 
     return(
-        <Link to={`/product/${id}`} className="text-inherit no-underline">
-            <div className="bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition p-4 flex flex-col">
+        <Link to={`/product/${id}`} className="text-inherit no-underline h-full">
+            <div className="h-full bg-white border border-gray-200 rounded-xl shadow-md hover:shadow-lg transition p-4 flex flex-col">
 
                 {/* Product Image */}
                 <div className="w-full h-40 bg-white flex items-center justify-center mb-4">
@@ -25,7 +25,7 @@ const ProductCard = ({ id, title, price, image, rating }: Product) => {
                 </div>
 
                 {/* Product Info */}
-                <h2 className="text-lg font-semibold mb-2 line-clamp-2">
+                <h2 className="text-lg font-semibold mb-2 line-clamp-2 min-h-[3.5rem]">
                     {title}
                 </h2>
 

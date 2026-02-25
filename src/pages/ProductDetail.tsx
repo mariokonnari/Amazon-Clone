@@ -1,16 +1,19 @@
 import { useParams } from "react-router-dom";
-import { products } from "../data/products";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../store/CartSlice";
+import { useState, useEffect } from "react";
+import type { Product } from "../types/product"
 
 const ProductDetail = () => {
-    const dispatch = useDispatch();
-
     const { id } = useParams();
+    const dispatch = useDispatch();
+    const [product, setProduct] = useState<Product | null>(null)
 
-    const product = products.find(
-        (p) => p.id === Number(id)
-    );
+    useEffect(() => {
+        fetch(`https://fakestoreapi.com/products/${id}`)
+            .then(res => res.json())
+            .then(data => {setProduct(data)})
+    }, [id])
 
     if (!product) {
         return(
@@ -44,11 +47,11 @@ const ProductDetail = () => {
                 </p>
 
                 <div className="text-yellow-500 text-lg">
-                    ⭐ {product.rating}
+                    ⭐ {product.rating.rate}
                 </div>
 
                 <button 
-                    className="mt-6 bg-yellow-400 hover:bg-yellow-500 text-white px-6 py-3 rounded-lg text-lg font-semibold transition duration-200"
+                    className="mt-6 bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-3 rounded-lg text-lg font-semibold transition duration-200"
                     onClick={handleAddToCart}
                 >
                     Add to Cart

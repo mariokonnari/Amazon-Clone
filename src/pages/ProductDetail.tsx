@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../store/CartSlice";
 import { useState, useEffect } from "react";
 import type { Product } from "../types/product"
+import { Link } from "react-router-dom";
 
 const ProductDetail = () => {
     const { id } = useParams();
@@ -28,8 +29,16 @@ const ProductDetail = () => {
     };
 
     return(
-        <div className="max-w-4xl mx-auto px-8 py-12 flex flex-col md:flex-row gap-12">
-            <div className="w-full md:w-96 flex-shrink-0">
+        <div className="max-w-4xl mx-auto px-8 py-12">
+            <Link
+                to="/"
+                className="text-blue-600 hover:underline mb-6 inline-block"
+            >
+                ← Back to Products
+            </Link>
+
+            <div className="flex flex-col md:flex-row gap-12">
+                <div className="w-full md:w-96 flex-shrink-0">
                 <img
                     src={product.image}
                     alt={product.title}
@@ -42,20 +51,28 @@ const ProductDetail = () => {
                     {product.title}
                 </h1>
 
+                <span className="bg-gray-200 text-gray-700 text-sm px-2 py-1 rounded capitalize">
+                    {product.category}
+                </span>
+
                 <p className="text-2xl font-semibold text-gray-900">
-                    ${product.price}
+                    ${product.price.toFixed(2)}
                 </p>
 
                 <div className="text-yellow-500 text-lg">
                     ⭐ {product.rating.rate}
                 </div>
 
+                <p className="text-gray-600 mt-4 leading-relaxed">
+                    {product.description}
+                </p>
                 <button 
                     className="mt-6 bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-3 rounded-lg text-lg font-semibold transition duration-200"
                     onClick={handleAddToCart}
                 >
                     Add to Cart
                 </button>
+            </div>
             </div>
         </div>
     );

@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../store/store";
-import { removeFromCart } from "../store/CartSlice";
+import { removeFromCart, clearCart } from "../store/CartSlice";
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -11,7 +11,7 @@ const Cart = () => {
 
     if (cartItems.length === 0) {
         return (
-            <div className="max-w-4xl mx-auto px-8 py-12">
+            <div className="min-h-screen max-w-4xl mx-auto px-8 py-12">
                 <h2 className="text-2xl font-semibold">
                     Your cart is empty
                 </h2>
@@ -20,7 +20,7 @@ const Cart = () => {
     }
 
     return (
-        <div className="max-w-4xl mx-auto px-8 py-12 flex flex-col gap-6">
+        <div className="min-h-screen max-w-4xl mx-auto px-8 py-12 flex flex-col gap-6">
             <h1 className="text-3xl font-bold mb-6">
                 Your Cart
             </h1>
@@ -54,7 +54,13 @@ const Cart = () => {
                     </button>
                 </div>
             ))}
-
+            {cartItems.length > 1 && (
+                <button 
+                    onClick={() => dispatch(clearCart())}
+                    className="w-full bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 font-semibold transition">
+                    Remove All
+                </button>
+            )}
             <div className="text-right text-xl font-bold mt-4">
                 Total: ${cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0).toFixed(2)}
             </div>

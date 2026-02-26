@@ -2,13 +2,18 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../store/CartSlice";
 import type { Product } from "../types/product";
+import { useState } from "react";
 
 const ProductCard = ({ id, title, price, image, rating }: Product) => {
+    const [added, setAdded] = useState(false);
+
     const dispatch = useDispatch();
 
     const handleAddToCart = (e: React.MouseEvent) => {
         e.preventDefault();
         dispatch(addToCart({ id, title, price, description: "", category: "", image, rating }));
+        setAdded(true);
+        setTimeout(() => setAdded(false), 1000);
     };
 
     return(
@@ -43,11 +48,15 @@ const ProductCard = ({ id, title, price, image, rating }: Product) => {
                 </div>
 
                 {/* Add to Cart Button */}
-                <button 
-                    className="mt-auto bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-2 rounded-md transition"
+                <button
                     onClick={handleAddToCart}
+                    className={`mt-auto font-semibold py-2 rounded-md transition ${
+                        added
+                        ? "bg-green-500 text-white"
+                        : "bg-yellow-400 hover:bg-yellow-500 text-black"
+                    }`}
                 >
-                    Add to Cart
+                    {added ? "Added ✓" : "Add to Cart"}
                 </button>
             </div>
         </Link>

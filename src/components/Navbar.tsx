@@ -20,9 +20,9 @@ const Navbar = ({setSearchQuery}: NavbarProps) => {
         <div>
             <nav className="flex w-full items-center justify-between bg-gray-900 text-white px-4 py-2">
                 {/*Left Side - Logo*/}
-                <div>
+                <Link to="/">
                     <h2 className="text-xl font-bold cursor-pointer text-yellow-400">Mariozon</h2>
-                </div>
+                </Link>
                 {/*Middle - Search Bar*/}
                 <div className="flex items-center gap-2">
                     <input

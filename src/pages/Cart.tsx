@@ -58,7 +58,7 @@ const Cart = () => {
                 <button 
                     onClick={() => dispatch(clearCart())}
                     className="w-full bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 font-semibold transition">
-                    Remove All
+                    🗑 Remove All Items
                 </button>
             )}
             <div className="text-right text-xl font-bold mt-4">

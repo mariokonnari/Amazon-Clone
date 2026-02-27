@@ -20,7 +20,7 @@ const Cart = () => {
     }
 
     return (
-        <div className="min-h-screen max-w-4xl mx-auto px-8 py-12 flex flex-col gap-6">
+        <div className="min-h-screen max-w-4xl mx-auto px-4 py-8 flex flex-col gap-6">
             <h1 className="text-3xl font-bold mb-6">
                 Your Cart
             </h1>

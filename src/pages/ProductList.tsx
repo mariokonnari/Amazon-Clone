@@ -38,7 +38,7 @@ const ProductList = ({searchQuery}: ProductListProps) => {
     }
 
     return (
-        <div className="min-h-screen bg-gray-100 px-8 py-12">
+        <div className="min-h-screen bg-gray-100 px-4 py-8">
             <h1 className="text-3xl font-bold mb-8">
                 All Products
             </h1>

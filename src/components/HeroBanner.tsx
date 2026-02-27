@@ -10,7 +10,7 @@ const HeroBanner = () => {
             <div className="absolute inset-0 bg-black/50"></div>
 
             {/* Content */}
-            <div className="relative z-10 max-w-7xl mx-auto px-8 text-white">
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 text-white">
                 <h1 className="text-4xl md:text-5xl font-bold mb-4">
                     Discover Amazing Deals
                 </h1>

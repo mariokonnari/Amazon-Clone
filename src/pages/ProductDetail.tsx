@@ -9,15 +9,19 @@ const ProductDetail = () => {
     const [added, setAdded] = useState(false);
     const { id } = useParams();
     const dispatch = useDispatch();
-    const [product, setProduct] = useState<Product | null>(null)
+    const [product, setProduct] = useState<Product | null>(null);
     const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
+    const [quantity, setQuantity] = useState(1);
 
 
 
     useEffect(() => {
         fetch(`https://fakestoreapi.com/products/${id}`)
             .then(res => res.json())
-            .then(data => { setProduct(data) })
+            .then(data => { 
+                setProduct(data) 
+                setQuantity(1);
+            })
     }, [id])
 
     useEffect(() => {
@@ -40,7 +44,7 @@ const ProductDetail = () => {
     }
 
     const handleAddToCart = () => {
-        dispatch(addToCart(product));
+        dispatch(addToCart({...product, quantity}));
         setAdded(true);
         setTimeout(() => setAdded(false), 1000);
     };
@@ -83,9 +87,27 @@ const ProductDetail = () => {
                     <p className="text-gray-600 mt-4 leading-relaxed">
                         {product.description}
                     </p>
+                    {/*Quantity Selector*/}
+                    <div className="flex items-center gap-4 mt-4">
+                        <button
+                            onClick={() => setQuantity(prev => Math.max(1, prev -1))}
+                            className="w-12 h-12 text-xl font-bold border rounded-lg hover:bg-gray-100 transition"
+                        >
+                            −
+                        </button>
+                        <span className="text-xl font-semibold w-10 text-center">
+                            {quantity}
+                        </span>
+                        <button
+                            onClick={() => setQuantity(prev => prev + 1)}
+                            className="w-12 h-12 text-xl font-bold border rounded-lg hover:bg-gray-100 transition"
+                        >
+                            +
+                        </button>
+                    </div>
                     <button
                         onClick={handleAddToCart}
-                        className={`mt-auto font-semibold py-2 rounded-md transition ${added
+                        className={`mt-4 font-semibold py-2 rounded-md transition ${added
                                 ? "bg-green-500 text-white"
                                 : "bg-yellow-400 hover:bg-yellow-500 text-black"
                             }`}
@@ -94,6 +116,7 @@ const ProductDetail = () => {
                     </button>
                 </div>
             </div>
+            {/*Related Products*/}
             {relatedProducts.length > 0 && (
                 <div className="mt-16">
                     <h2 className="text-2xl font-bold mb-6">Related Products</h2>

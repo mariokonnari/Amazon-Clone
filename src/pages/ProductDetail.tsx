@@ -10,6 +10,7 @@ const ProductDetail = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const [product, setProduct] = useState<Product | null>(null)
+    const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
 
 
 
@@ -18,6 +19,17 @@ const ProductDetail = () => {
             .then(res => res.json())
             .then(data => { setProduct(data) })
     }, [id])
+
+    useEffect(() => {
+        if (!product?.category) return;
+
+        fetch(`https://fakestoreapi.com/products/category/${product.category}`)
+            .then(res => res.json())
+            .then((data: Product[]) => {
+                const filtered = data.filter(p => p.id !== product.id);
+                setRelatedProducts(filtered);
+            });
+    },[product?.category]);
 
     if (!product) {
         return (
@@ -82,6 +94,33 @@ const ProductDetail = () => {
                     </button>
                 </div>
             </div>
+            {relatedProducts.length > 0 && (
+                <div className="mt-16">
+                    <h2 className="text-2xl font-bold mb-6">Related Products</h2>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        {relatedProducts.map(item => (
+                            <Link
+                                key={item.id}
+                                to={`/product/${item.id}`}
+                                className="border rounded-lg p-4 hover:shadow-md transition"
+                                >
+                                    <img
+                                        src={item.image}
+                                        alt={item.title}
+                                        className="h-32 mx-auto object-contain mb-4"
+                                    />
+                                    <h3 className="text-sm font-medium line-clamp-2">
+                                        {item.title}
+                                    </h3>
+                                    <p className="mt-2 font-semibold">
+                                        ${item.price.toFixed(2)}
+                                    </p>
+                            </Link>
+                        ))}
+                    </div>
+                </div>    
+            )}
         </div>
     );
 };

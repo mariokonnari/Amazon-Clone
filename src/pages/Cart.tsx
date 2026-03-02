@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../store/store";
-import { removeFromCart, clearCart } from "../store/CartSlice";
+import { removeFromCart, increaseQuantity, decreaseQuantity, clearCart } from "../store/CartSlice";
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -36,16 +36,31 @@ const Cart = () => {
                             alt={item.title}
                             className="w-20 h-20 object-contain"
                         />
-
                         <div>
                             <h2 className="font-semibold">{item.title}</h2>
-                            <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
+                            <div className="flex items-center gap-3 mt-2">
+                                <button
+                                    onClick={() => dispatch(decreaseQuantity(item.id))}
+                                    className="w-10 h-10 text-lg font-bold border rounded-lg hover:bg-gray-100 transition"
+                                >
+                                    -
+                                </button>
+                                <span className="text-lg font-semibold w-8 text-center">
+                                    {item.quantity}
+                                </span>
+
+                                <button
+                                    onClick={() => dispatch(increaseQuantity(item.id))}
+                                    className="w-10 h-10 text-lg font-bold border rounded-lg hover:bg-gray-100 transition"
+                                >
+                                    +
+                                </button>
+                            </div>
                             <p className="text-gray-900 font-bold">
-                                ${item.price}
+                                ${(item.price * item.quantity).toFixed(2)}
                             </p>
                         </div>
                     </div>
-
                     <button
                         onClick={() => dispatch(removeFromCart(item.id))}
                         className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"

@@ -1,21 +1,25 @@
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart, increaseQuantity, decreaseQuantity } from "../store/CartSlice";
 import type { Product } from "../types/product";
 import { useState } from "react";
+import type { RootState } from "../store/store";
 
 const ProductCard = ({ id, title, price, image, rating, description, category }: Product) => {
     const dispatch = useDispatch();
-
     const [added, setAdded] = useState(false);
-    const [quantity, setQuantity] = useState(1);
-    const [showQuantity, setShowQuantity] = useState(false);
+
+    const cartItem = useSelector((state: RootState) =>
+        state.cart.items.find(item => item.id === id)
+    );
+
+    const quantity = cartItem?.quantity ?? 0;
+    const showQuantity = quantity > 0;
 
     const handleFirstAdd = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        dispatch(addToCart({ id, title, price, description, category, image, rating, quantity }));
-        setShowQuantity(true);
+        dispatch(addToCart({ id, title, price, description, category, image, rating, quantity: 1 }));
         setAdded(true);
         setTimeout(() => setAdded(false), 1000);
     }
@@ -23,21 +27,13 @@ const ProductCard = ({ id, title, price, image, rating, description, category }:
     const handleIncrease = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        setQuantity(prev => prev + 1);
         dispatch(increaseQuantity(id));
     }
 
     const handleDecrease = (e: React.MouseEvent) => {
         e.preventDefault();
         e.stopPropagation();
-        if (quantity > 1) {
-            setQuantity(prev => prev - 1);
-            dispatch(decreaseQuantity(id));
-        } else {
-            dispatch(decreaseQuantity(id));
-            setShowQuantity(false);
-            setQuantity(1);
-        }
+        dispatch(decreaseQuantity(id));
     }
 
     return(

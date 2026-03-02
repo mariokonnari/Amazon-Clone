@@ -71,7 +71,7 @@ const ProductCard = ({ id, title, price, image, rating, description, category }:
                 {!showQuantity ? (
                     <button
                         onClick={handleFirstAdd}
-                        className={`mt-auto font-semibold py-2 rounded-md transition ${
+                        className={`mt-auto h-10 font-semibold py-2 rounded-md transition ${
                         added
                             ? "bg-green-500 text-white"
                             : "bg-yellow-400 hover:bg-yellow-500 text-black"
@@ -80,10 +80,10 @@ const ProductCard = ({ id, title, price, image, rating, description, category }:
                         {added ? "Added ✓" : "Add to Cart"}
                     </button>
                 ) : (
-                    <div className="mt-auto flex items-center justify-between border rounded-lg overflow-hidden">
+                    <div className="mt-auto h-10 flex items-center justify-between bg-yellow-400 border rounded-lg overflow-hidden">
                         <button
                             onClick={handleDecrease}
-                            className="w-12 h-12 text-xl font-bold hover:bg-gray-100 transition"
+                            className="w-10 h-10 text-xl font-bold hover:bg-yellow-500 transition"
                         >
                             -
                         </button>
@@ -94,7 +94,7 @@ const ProductCard = ({ id, title, price, image, rating, description, category }:
                         
                         <button
                             onClick={handleIncrease}
-                            className="w-12 h-12 text-xl font-bold hover:bg-gray-100 transition"
+                            className="w-10 h-10 text-xl font-bold hover:bg-yellow-500 transition"
                         >
                             +
                         </button>

@@ -54,6 +54,7 @@ const ProductList = ({searchQuery}: ProductListProps) => {
                         category={product.category}
                         image={product.image}
                         rating={product.rating}
+                        quantity={product.quantity}
                     />
                 ))}
             </div>

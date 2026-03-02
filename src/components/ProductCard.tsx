@@ -1,20 +1,44 @@
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../store/CartSlice";
+import { addToCart, increaseQuantity, decreaseQuantity } from "../store/CartSlice";
 import type { Product } from "../types/product";
 import { useState } from "react";
 
-const ProductCard = ({ id, title, price, image, rating }: Product) => {
-    const [added, setAdded] = useState(false);
-
+const ProductCard = ({ id, title, price, image, rating, description, category }: Product) => {
     const dispatch = useDispatch();
 
-    const handleAddToCart = (e: React.MouseEvent) => {
+    const [added, setAdded] = useState(false);
+    const [quantity, setQuantity] = useState(1);
+    const [showQuantity, setShowQuantity] = useState(false);
+
+    const handleFirstAdd = (e: React.MouseEvent) => {
         e.preventDefault();
-        dispatch(addToCart({ id, title, price, description: "", category: "", image, rating }));
+        e.stopPropagation();
+        dispatch(addToCart({ id, title, price, description, category, image, rating, quantity }));
+        setShowQuantity(true);
         setAdded(true);
         setTimeout(() => setAdded(false), 1000);
-    };
+    }
+
+    const handleIncrease = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setQuantity(prev => prev + 1);
+        dispatch(increaseQuantity(id));
+    }
+
+    const handleDecrease = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (quantity > 1) {
+            setQuantity(prev => prev - 1);
+            dispatch(decreaseQuantity(id));
+        } else {
+            dispatch(decreaseQuantity(id));
+            setShowQuantity(false);
+            setQuantity(1);
+        }
+    }
 
     return(
         <Link to={`/product/${id}`} className="text-inherit no-underline h-full">
@@ -48,16 +72,38 @@ const ProductCard = ({ id, title, price, image, rating }: Product) => {
                 </div>
 
                 {/* Add to Cart Button */}
-                <button
-                    onClick={handleAddToCart}
-                    className={`mt-auto font-semibold py-2 rounded-md transition ${
+                {!showQuantity ? (
+                    <button
+                        onClick={handleFirstAdd}
+                        className={`mt-auto font-semibold py-2 rounded-md transition ${
                         added
-                        ? "bg-green-500 text-white"
-                        : "bg-yellow-400 hover:bg-yellow-500 text-black"
-                    }`}
-                >
-                    {added ? "Added ✓" : "Add to Cart"}
-                </button>
+                            ? "bg-green-500 text-white"
+                            : "bg-yellow-400 hover:bg-yellow-500 text-black"
+                        }`}
+                    >
+                        {added ? "Added ✓" : "Add to Cart"}
+                    </button>
+                ) : (
+                    <div className="mt-auto flex items-center justify-between border rounded-lg overflow-hidden">
+                        <button
+                            onClick={handleDecrease}
+                            className="w-12 h-12 text-xl font-bold hover:bg-gray-100 transition"
+                        >
+                            -
+                        </button>
+
+                        <span className="text-lg font-semibold">
+                            {quantity}
+                        </span>
+                        
+                        <button
+                            onClick={handleIncrease}
+                            className="w-12 h-12 text-xl font-bold hover:bg-gray-100 transition"
+                        >
+                            +
+                        </button>
+                    </div>
+                )}  
             </div>
         </Link>
     );

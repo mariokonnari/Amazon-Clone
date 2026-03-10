@@ -21,7 +21,7 @@ An Amazon-inspired e-commerce web application built with React, TypeScript, Tail
 - Deployed on Vercel
 
 ## Getting Started
-git clone https://github.com/mariokonnari/Amazon-Clone
-cd Amazon-Clone
-npm install
+git clone https://github.com/mariokonnari/Amazon-Clone  
+cd Amazon-Clone  
+npm install  
 npm run dev
